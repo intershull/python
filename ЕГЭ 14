@@ -1,0 +1,97 @@
+a=["q","a","a","a","z","x","s","w","a","q","x","w","w","r","."]
+
+
+print("\n---определяем длину массива:")
+a_length=0
+dot_element=0
+while dot_element!=".":
+    print(a_length,end=" ")
+    dot_element=a[a_length]
+    a_length+=1
+print("\nдлина массива (с точкой) =",a_length,"\n")
+
+
+print("---создаём частотный список и механизмы учёта/записи \n  ... ... ...\n")
+repeatability=[] #частотный список (пока пустой)
+def repeatability_searching_writing(x):
+    print(" запуск частотного списка:",end=" ")
+    for i in range(len(repeatability)):
+        if repeatability[i][0]==x: #нашли совпадение!
+            print("найдено! ")
+            repeatability[i][1]+=1
+            return
+    print("не найдено...")
+    repeatability.append([x,1])
+   
+   
+print("---Запускаем перебор нашего массива:")
+for i in range(a_length-1):
+    print("Элемент",a[i],": ",end="")
+    repeatability_searching_writing(a[i])
+print("Частотный список готов! \n",repeatability,"\n")
+
+
+print("---теперь надо отсортировать по частоте:")
+def repeatable_and_alphabet_sort(x):
+    b=1 #счетчик пузырьковых перестановок
+    while b>0:
+        b=0 #обнуляем счетчик пузырьковых перестановок
+        for i in range(len(x)-1):
+            print(x[i],x[i+1],end=" ")
+            if x[i+1][1]>x[i][1]:
+                x[i+1][1], x[i][1] = x[i][1], x[i+1][1]
+                b=b+1
+                print("DA! поменяли, счетчик=",b)
+                print(x)
+            else:
+                print("net, счетчик=",b)
+        print("обнуляем счетчик пузырьковых перестановок")
+repeatable_and_alphabet_sort(repeatability)
+print("Частотный список отсортирован по частоте! \n",repeatability,"\n")
+
+print("---создаём финальный массив result:\n ... ... ...\n")
+final=[]
+
+print("---создаём алфавитную сортировку диапазона:")
+print("---и пихаем в финальный массив:\n ... ... ...\n")
+def diap_sort(b,e):
+    a=[]
+    for i in range(e-b+1):
+        a.append(repeatability[b+i])
+    a=sorted(a)
+    print("diap_sort ",a)
+    
+    for i in range(len(a)):
+        final.append(a[i])
+    
+print("---теперь выделяем в массиве диапазоны с одинаковыми значениями,")
+print("---пихаем их на алфавитную сортировку diap_sort,")
+print("---а одиночные элементы отправляем в финальный массив")
+def diapazone_search(x):
+    b=False #датчик диапазона
+    begin=0 #начало диапазона
+    end=0 #конец диапазона
+    for i in range(len(x)-1):
+        print(x[i+1],end=" ")
+        if x[i+1][1]!=x[i][1] and b==False:
+            print(b,", это одиночка:")
+            final.append(x[i])
+        if x[i+1][1]==x[i][1] and b==False:
+            b=True
+            print(b,", начало диапазона:",x[i])
+            begin=i
+        if x[i+1][1]!=x[i][1] and b==True:
+            b=False
+            print(b,", конец диапазона:",x[i])
+            end=i
+            diap_sort(begin,end)
+        if i==(len(x)-2) and b==True:
+            b=False
+            print(b,", конец диапазона:",x[i+1])
+            end=i+1
+            diap_sort(begin,end)
+        print("")
+print(repeatability)
+diapazone_search(repeatability)
+
+print("ФИНАЛ",final)
