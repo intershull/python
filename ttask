@@ -1,0 +1,29 @@
+a=[62,51,24,68,46,35,96,27,94,46]
+
+print("--- найдем минимальный элемент: ")
+min_index=0
+for i in range(len(a)):
+    print("текущий элемент: ",a[i]," , минимум: ",a[min_index],end=" ")
+    if a[min_index]>a[i]:
+        print("yes ",end=" ")
+        min_index=i
+        print("новый минимум: ",a[min_index])
+    else:print("no")
+print("min_index: ",min_index)
+
+print("\n--- найдем максимальный элемент: ")
+max_index=0
+for i in range(len(a)):
+    print("текущий элемент: ",a[i]," , максимум: ",a[max_index],end=" ")
+    if a[max_index]<a[i]:
+        print("yes ",end=" ")
+        max_index=i
+        print("новый максимум: ",a[max_index])
+    else:print("no")
+print("max_index: ",max_index)
+
+count=min_index-max_index
+if count<0:
+    count=count-count*2
+count=count-1
+print("\n итог: кол-во элементов между \nмаксимальным и минимальным элементами в массива",count)
