@@ -1,0 +1,19 @@
+column_1=int(input())
+raw_1=int(input())
+column_2=int(input())
+raw_2=int(input())
+
+column_parity=(column_2-column_1)%2
+raw_parity=(raw_2-raw_1)%2
+
+if column_parity==0 and raw_parity==0:
+    print("YES")
+elif column_parity==1 and raw_parity==1:
+    print("YES")
+else:
+    print("NO")
+    
+    
+Заданы две клетки шахматной доски.
+Если они покрашены в один цвет, то выведите слово YES, а если в разные цвета — то NO.
+Программа получает на вход четыре числа от 1 до 8 каждое, задающие номер столбца и номер строки сначала для первой клетки, потом для второй клетки.
