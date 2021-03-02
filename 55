@@ -1,0 +1,71 @@
+intro=["R","E","R","V","V","F","E","E","F","M","E"]
+
+chet=[] #буквы в четном количестве
+nechet=[] #буквы в нечетном количестве (не более 1!)
+
+print(" --- подсчитаем буквы и определим четность:")
+def letter_counting(x):
+    temp=sorted(x)
+    count=0 #счетчик встречаемости букв
+    print("массив: ",temp)
+    while len(temp)>0:
+        print("0-й элемент: ",temp[0],end=", ")
+        for i in range(len(temp)):# считаем...
+            if temp[0]==temp[i]:
+                count+=1
+        print("счёт: ",count,end=", ")
+        
+        if count%2==0:
+            chet.append([temp[0],count]) #распихиваем
+            print(" чёт:",chet)
+        else:
+            nechet.append([temp[0],count])#распихиваем
+            print(" нечёт:",nechet)
+        
+        new_temp=[] #удаляем из массива подсчитанное
+        for i in range(len(temp)-count):
+            new_temp.append(temp[i+count])
+        print("Укоротили: ",new_temp,"\n")
+        temp=new_temp
+        
+        count=0 #обнуляем счетчик 
+
+letter_counting(intro)
+
+
+
+print("\n --- Возможен ли палиндром? ", end="")
+if len(nechet)<=1:
+    is_palindrom_possible=True
+    print("ДА")
+else:
+    is_palindrom_possible=True
+    print("НЕТ")
+
+
+
+print("\n --- строим палиндром:")
+result=[] # финальный палиндром
+def palindrom_build():
+    for i in range(len(chet)): #левая часть палиндрома: 
+        print(chet[i], end=" ") #половина от каждого 
+        for j in range(chet[i][1]//2):# четного значения
+            result.append(chet[i][0])
+    print("\nлевая часть палиндрома заполнена ",result)
+    
+    if len(nechet)>0: #
+        print("надо заполнить середину")
+        result.append(nechet[0][0])
+        print("\nцентр палиндрома заполнен ",result)
+    
+    for i in range(len(chet)):  #правая часть палиндрома
+        print(chet[len(chet)-i-1], end=" ")
+        for j in range(chet[len(chet)-i-1][1]//2):
+            result.append(chet[len(chet)-i-1][0])
+    print("\nлевая часть палиндрома заполнена ",result)
+    
+    
+if is_palindrom_possible:
+    palindrom_build()
+    
+   
